@@ -2,6 +2,10 @@ from urllib.error import HTTPError
 import requests
 from dotenv import load_dotenv
 import os
+import logging
+
+logger = logging.getLogger("concert_buddies.credentials")
+logger.info("send help pls creds")
 
 load_dotenv()
 
@@ -17,9 +21,9 @@ def get_access_token():
                                 },
                                 )
     except HTTPError as http_err:
-        print(f'HTTP error: {http_err}')
+        logger.error(f'HTTP error: {http_err}')
     except Exception as err:
-        print(f'Unkown error: {err}')
+        logger.error(f'Unkown error: {err}')
     else:
-        print("got access token as if I am web player")
+        logger.info("got web player access token")
         return response.json().get('accessToken')
